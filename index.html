@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#08050d">
+<title>For Duka ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: dark;
+  --night: #08050d;
+  --pink: #ffd8e8;
+  --pink-glow: #e88bb9;
+  --glass: rgba(229,221,244,.28);
+  --gold-light: #fff0c2;
+  --gold: #d6ae65;
+  --gold-dark: #76502b;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--night);
+  overscroll-behavior: none;
+}
+body {
+  position: relative;
+  color: #fff0f7;
+  font-family: monospace;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background:
+    radial-gradient(ellipse at 50% 47%, #190d1c 0%, #0b0710 47%, #08050d 78%);
+}
+canvas {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#screen { z-index: 1; }
+.ambient {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  opacity: .42;
+  background:
+    radial-gradient(circle at 16% 24%, rgba(158,74,119,.11), transparent 26%),
+    radial-gradient(circle at 86% 66%, rgba(107,69,129,.10), transparent 29%);
+  animation: ambientBreath 8s ease-in-out infinite alternate;
+}
+.vignette {
+  position: fixed;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.18) 72%, rgba(0,0,0,.42) 100%);
+}
+@keyframes ambientBreath {
+  from { opacity: .25; }
+  to { opacity: .58; }
+}
+.top {
+  position: fixed;
+  z-index: 8;
+  top: calc(22px + var(--safe-top));
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #d8aecb;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: .88;
+  pointer-events: none;
+}
+.top span { text-shadow: 0 0 10px rgba(225,151,194,.25); }
+.top-right { text-align: right; }
+.name {
+  position: fixed;
+  z-index: 8;
+  top: calc(10.4% + var(--safe-top));
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff0f7;
+  font: 500 clamp(36px, 10vw, 54px) "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 10px;
+  text-indent: 10px;
+  text-shadow: 0 0 12px rgba(240,155,195,.95), 0 0 38px rgba(159,66,121,.8);
+  pointer-events: none;
+  animation: nameGlow 4.5s ease-in-out infinite;
+}
+@keyframes nameGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(240,155,195,.72), 0 0 30px rgba(159,66,121,.58); }
+  50% { text-shadow: 0 0 17px rgba(255,203,226,1), 0 0 48px rgba(190,86,145,.9); }
+}
+.message {
+  position: fixed;
+  z-index: 8;
+  left: 0;
+  bottom: calc(9.5% + var(--safe-bottom));
+  width: 100%;
+  padding: 0 9px;
+  text-align: center;
+  color: #fff0f7;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(25px, 7vw, 36px);
+  letter-spacing: .15px;
+  text-shadow: 0 0 8px rgba(255,180,215,.8), 0 0 22px rgba(225,105,168,.65);
+  pointer-events: none;
+  animation: messageBreath 5s ease-in-out infinite;
+}
+@keyframes messageBreath {
+  0%, 100% { opacity: .88; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+.signature {
+  position: fixed;
+  z-index: 8;
+  right: 17px;
+  bottom: calc(3.2% + var(--safe-bottom));
+  color: #edc5da;
+  font-family: "Allura", cursive;
+  font-size: 27px;
+  text-shadow: 0 0 12px #ed80b8;
+  pointer-events: none;
+  animation: signatureGlow 4s ease-in-out infinite;
+}
+@keyframes signatureGlow {
+  0%, 100% { opacity: .78; }
+  50% { opacity: 1; }
+}
+.corner {
+  position: fixed;
+  z-index: 7;
+  width: 18px;
+  height: 18px;
+  opacity: .22;
+  pointer-events: none;
+}
+.corner::before, .corner::after {
+  content: "";
+  position: absolute;
+  background: #d8aecb;
+}
+.corner::before { width: 18px; height: 1px; }
+.corner::after { width: 1px; height: 18px; }
+.corner-a { top: 65px; left: 15px; }
+.corner-b { top: 65px; right: 15px; transform: rotate(90deg); }
+.corner-c { bottom: 25px; left: 15px; transform: rotate(-90deg); }
+.corner-d { right: 15px; bottom: 25px; transform: rotate(180deg); }
+@media (max-height: 700px) {
+  .name { top: calc(8.5% + var(--safe-top)); }
+  .message { bottom: calc(8.5% + var(--safe-bottom)); font-size: clamp(23px, 6.5vw, 31px); }
+  .signature { bottom: calc(2.5% + var(--safe-bottom)); }
+}
+@media (max-height: 620px) {
+  .name { top: calc(7% + var(--safe-top)); font-size: 34px; }
+  .message { bottom: calc(7% + var(--safe-bottom)); font-size: 24px; }
+  .signature { font-size: 22px; }
+}
+@media (min-width: 700px) {
+  .top { left: 30px; right: 30px; font-size: 10px; }
+  .message { font-size: 39px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient, .name, .message, .signature { animation-duration: 20s; }
+}
+</style>
+
+<!--
+GUIA DE MANUTENÇÃO DO PROJETO
+Este bloco documenta os pontos seguros de personalização.
+
+COMO ALTERAR O TEXTO
+- Para mudar o nome, procure o elemento com class name e altere apenas o texto DUKA.
+- Para mudar a dedicatória, procure class message e substitua somente o conteúdo textual.
+- Para mudar a assinatura, procure class signature e edite apenas with love.
+- Não é necessário editar o JavaScript para trocar as três mensagens.
+
+COMO AJUSTAR A APARÊNCIA
+- As cores principais estão declaradas nas variáveis CSS dentro de :root.
+- A variável night controla o tom principal do fundo.
+- A variável pink controla o tom claro de destaque.
+- A variável gold controla a paleta visual da tampa ornamental.
+- A variável glass representa a transparência conceitual do vidro.
+- A tipografia principal usa Cormorant Garamond.
+- A assinatura usa Allura.
+- Se a conexão estiver sem internet, as fontes externas podem usar as fontes alternativas.
+
+COMO FUNCIONA A ROSA EM CARACTERES
+- A rosa original é desenhada primeiro em um canvas auxiliar invisível.
+- Os pixels visíveis são convertidos em pontos de caracteres.
+- Os pontos guardam a cor original do pixel que representam.
+- Os pontos verdes usam uma paleta de caracteres diferente da paleta das pétalas.
+- A animação desloca os caracteres de forma sutil para dar vida à flor.
+- A seção marcada ROSA ORIGINAL deve permanecer intacta.
+- Não altere makePetal, makeRose, makeLeaf, makeStem ou buildAscii se quiser preservar a flor.
+
+COMO FUNCIONA A REDOMA
+- A redoma é desenhada por caminhos vetoriais no canvas principal.
+- O preenchimento usa um gradiente horizontal para simular vidro.
+- O contorno externo define a silhueta do vidro.
+- O contorno interno cria uma segunda camada de profundidade.
+- Os reflexos laterais simulam luz incidindo no vidro.
+- Os pequenos pontos de brilho percorrem as laterais da redoma.
+- A tampa é desenhada em uma camada própria sobre a parte superior.
+
+COMO FUNCIONA A TAMPA
+- A tampa usa uma paleta dourada com tons claros e escuros.
+- O puxador tem curvas para lembrar uma peça ornamental antiga.
+- A haste conecta o puxador ao colar da tampa.
+- A estrela superior é um pequeno detalhe de luz.
+- O filigrana é decorativo e não interfere na rosa.
+
+COMO FUNCIONA A BASE
+- A base é preta e usa um gradiente vertical.
+- A sombra inferior separa visualmente a base do fundo.
+- O aro superior acompanha a largura da redoma.
+- O detalhe central é apenas um pequeno ponto metálico.
+- Não há terra, pedras ou caracteres desenhados no fundo da base.
+
+COMO FUNCIONA A CHUVA DE CÓDIGO
+- Cada coluna de chuva guarda sua posição vertical e velocidade.
+- Cada coluna tem um comprimento independente.
+- Os caracteres são escolhidos novamente durante a animação.
+- A cabeça da coluna tem mais brilho que o restante do rastro.
+- Quando uma coluna sai da tela, ela reaparece acima do enquadramento.
+
+COMO FUNCIONAM AS PARTÍCULAS
+- As estrelas têm velocidades e tamanhos levemente diferentes.
+- A poeira flutuante se move lentamente pelo cenário.
+- Os brilhos próximos ao vidro têm uma fase própria.
+- Essas partículas são independentes da arte da rosa.
+
+COMPATIBILIDADE E DESEMPENHO
+- O arquivo não depende de bibliotecas JavaScript externas.
+- O desenho usa Canvas 2D, disponível nos navegadores móveis modernos.
+- O tamanho do canvas acompanha a janela do navegador.
+- A densidade de pixels é limitada para reduzir o custo de renderização.
+- A animação pausa quando a página fica oculta.
+- A animação retoma quando a página volta a ficar visível.
+- O evento de redimensionamento é suavizado por um pequeno atraso.
+
+PONTOS DE CUIDADO
+- Não apague o elemento canvas com id screen.
+- Não remova a chamada initializeArtwork no final do script.
+- Não remova o requestAnimationFrame do loop de animação.
+- Não coloque a redoma atrás do canvas principal.
+- Não altere a escala do desenho sem conferir a posição da rosa dentro do vidro.
+- Salve uma cópia de segurança antes de futuras alterações manuais.
+-->
+</head>
+<body>
+<canvas id="screen" aria-hidden="true"></canvas>
+<div class="ambient" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="top">
+  <span>DUKA.EXE</span>
+  <span class="top-right">THE ENCHANTED ROSE</span>
+</div>
+<div class="name">DUKA</div>
+<div class="message">Para uma garota especial ♡</div>
+<div class="signature">with love ♡</div>
+<div class="corner corner-a" aria-hidden="true"></div>
+<div class="corner corner-b" aria-hidden="true"></div>
+<div class="corner corner-c" aria-hidden="true"></div>
+<div class="corner corner-d" aria-hidden="true"></div>
+
+<script>
+"use strict";
+
+/* ROSE.EXE — THE ENCHANTED ROSE — DEDICATED TO DUKA */
+
+const canvas = document.getElementById("screen");
+const ctx = canvas.getContext("2d", { alpha: true });
+const art = document.createElement("canvas");
+const ac = art.getContext("2d", { willReadFrequently: true });
+const AW = 360;
+const AH = 520;
+art.width = AW;
+art.height = AH;
+
+let W = 0;
+let H = 0;
+let DPR = 1;
+let frame = 0;
+let animationId = 0;
+let lastFrameTime = 0;
+let resizeTimer = 0;
+let rain = [];
+let stars = [];
+let asciiPoints = [];
+let floatingDust = [];
+let glints = [];
+
+const codeChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*+-<>[]{}";
+const flowerChars = "@#$%&*+=:;.";
+const greenChars = "01{}[]<>/\\|+-=~";
+const TAU = Math.PI * 2;
+
+/* ---------------------------------------------------------
+   FERRAMENTAS BÁSICAS
+   --------------------------------------------------------- */
+
+function random(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function pulse(time, speed, phase = 0) {
+  return .5 + .5 * Math.sin(time * speed + phase);
+}
+
+function rgba(r, g, b, a) {
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function getScaleFactor() {
+  return clamp(Math.min(W / 390, H / 820), .72, 1.12);
+}
+
+/* ---------------------------------------------------------
+   TAMANHO DO CANVAS E RESPONSIVIDADE
+   --------------------------------------------------------- */
+
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = Math.max(1, Math.floor(W * DPR));
+  canvas.height = Math.max(1, Math.floor(H * DPR));
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  createRain();
+  createStars();
+  createFloatingDust();
+  createGlints();
+}
+
+function requestResize() {
+  window.clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(resize, 90);
+}
+
+window.addEventListener("resize", requestResize, { passive: true });
+window.addEventListener("orientationchange", () => {
+  window.setTimeout(resize, 180);
+}, { passive: true });
+
+/* =========================================================
+   ROSA ORIGINAL — NÃO MODIFICAR
+   As funções makePetal e makeRose abaixo foram mantidas
+   exatamente como estavam no código enviado.
+   ========================================================= */
+
+function makePetal(
+  x,
+  y,
+  width,
+  height,
+  rotation,
+  color1,
+  color2,
+  color3
+) {
+  ac.save();
+
+  ac.translate(x, y);
+  ac.rotate(rotation);
+
+  const gradient = ac.createLinearGradient(
+    0, -height, 0, height * .3
+  );
+
+  gradient.addColorStop(0, color1);
+  gradient.addColorStop(.45, color2);
+  gradient.addColorStop(1, color3);
+
+  ac.beginPath();
+  ac.moveTo(0, 0);
+
+  ac.bezierCurveTo(
+    -width * .95,
+    -height * .22,
+    -width * 1.05,
+    -height * .85,
+    0,
+    -height
+  );
+
+  ac.bezierCurveTo(
+    width * 1.05,
+    -height * .85,
+    width * .95,
+    -height * .22,
+    0,
+    0
+  );
+
+  ac.closePath();
+  ac.fillStyle = gradient;
+  ac.fill();
+
+  ac.strokeStyle = "rgba(255,170,199,.36)";
+  ac.lineWidth = 1;
+  ac.stroke();
+
+  ac.strokeStyle = "rgba(255,191,212,.35)";
+  ac.lineWidth = .8;
+  ac.beginPath();
+  ac.moveTo(0, -2);
+
+  ac.quadraticCurveTo(
+    width * .08,
+    -height * .55,
+    0,
+    -height * .94
+  );
+
+  ac.stroke();
+  ac.restore();
+}
+
+function makeRose() {
+  ac.save();
+
+  makePetal(115, 160, 45, 77, -.75, "#ff668d", "#bb1748", "#590e2b");
+  makePetal(150, 145, 48, 85, -.35, "#ff809f", "#d32353", "#69102e");
+  makePetal(190, 142, 48, 84, .15, "#ff809e", "#c91d50", "#67102f");
+  makePetal(222, 160, 45, 78, .65, "#ff6488", "#b91548", "#510e2a");
+  makePetal(110, 190, 49, 63, -1.2, "#e9426e", "#a60e3c", "#4a1029");
+  makePetal(225, 190, 48, 65, 1.2, "#fa547d", "#a90e3c", "#4c0b28");
+  makePetal(140, 169, 39, 59, -.55, "#ff91aa", "#e33162", "#7d1236");
+  makePetal(180, 157, 40, 65, -.12, "#ff9cb3", "#d82a5a", "#71112f");
+  makePetal(205, 178, 38, 57, .65, "#ff829f", "#c51b50", "#68102c");
+  makePetal(147, 200, 37, 54, -1.0, "#fa678e", "#bb194c", "#5b0d2c");
+  makePetal(191, 205, 37, 54, .95, "#fa668c", "#bd1749", "#570c2b");
+  makePetal(161, 180, 27, 39, -.35, "#ffb2c5", "#ed4774", "#94123d");
+  makePetal(185, 181, 29, 43, .38, "#ff9dbb", "#db285c", "#78102f");
+  makePetal(174, 198, 25, 35, .05, "#ffb2c8", "#e83c6d", "#8d1239");
+
+  ac.save();
+  ac.translate(177, 188);
+  ac.lineWidth = 5;
+  ac.lineCap = "round";
+
+  const spiral = ac.createLinearGradient(-20, -20, 20, 20);
+  spiral.addColorStop(0, "#ffb4c9");
+  spiral.addColorStop(.5, "#f14c7b");
+  spiral.addColorStop(1, "#a70e42");
+
+  ac.strokeStyle = spiral;
+  ac.beginPath();
+
+  for (let t = 0; t < TAU * 2.1; t += .035) {
+    const r = 1.5 + t * 2.4;
+    const x = Math.cos(t) * r;
+    const y = Math.sin(t) * r * .83;
+    if (t === 0) ac.moveTo(x, y);
+    else ac.lineTo(x, y);
+  }
+
+  ac.stroke();
+  ac.restore();
+
+  for (let i = 0; i < 70; i++) {
+    const x = random(95, 245);
+    const y = random(100, 225);
+    ac.fillStyle = "rgba(255,207,222,.65)";
+    ac.beginPath();
+    ac.arc(x, y, random(.3, 1), 0, TAU);
+    ac.fill();
+  }
+
+  ac.restore();
+}
+
+/* =========================================================
+   CAULE E FOLHAS ORIGINAIS — NÃO MODIFICAR
+   ========================================================= */
+
+function makeLeaf(x, y, width, height, angle) {
+  ac.save();
+  ac.translate(x, y);
+  ac.rotate(angle);
+
+  const gradient = ac.createLinearGradient(0, 0, width, -height);
+  gradient.addColorStop(0, "#183b2d");
+  gradient.addColorStop(.5, "#517e52");
+  gradient.addColorStop(1, "#9db57a");
+
+  ac.beginPath();
+  ac.moveTo(0, 0);
+
+  ac.bezierCurveTo(
+    width * .25,
+    -height * .9,
+    width * .85,
+    -height * 1.15,
+    width,
+    -height * .55
+  );
+
+  ac.bezierCurveTo(
+    width * .9,
+    height * .2,
+    width * .3,
+    height * .3,
+    0,
+    0
+  );
+
+  ac.closePath();
+  ac.fillStyle = gradient;
+  ac.fill();
+
+  ac.strokeStyle = "rgba(210,238,181,.65)";
+  ac.lineWidth = 1;
+  ac.beginPath();
+  ac.moveTo(0, 0);
+
+  ac.quadraticCurveTo(
+    width * .45,
+    -height * .15,
+    width * .94,
+    -height * .58
+  );
+
+  ac.stroke();
+
+  for (let i = 1; i <= 3; i++) {
+    const t = i / 4;
+    ac.beginPath();
+    ac.moveTo(width * t, -height * t * .55);
+    ac.lineTo(width * (t + .16), -height * (t + .22));
+    ac.stroke();
+  }
+
+  ac.restore();
+}
+
+function makeStem() {
+  const gradient = ac.createLinearGradient(180, 220, 180, 460);
+  gradient.addColorStop(0, "#7b9c58");
+  gradient.addColorStop(.45, "#396b42");
+  gradient.addColorStop(1, "#173c2b");
+
+  ac.strokeStyle = gradient;
+  ac.lineWidth = 8;
+  ac.lineCap = "round";
+  ac.beginPath();
+  ac.moveTo(178, 217);
+
+  ac.bezierCurveTo(
+    170, 290,
+    193, 365,
+    180, 454
+  );
+
+  ac.stroke();
+
+  ac.strokeStyle = "rgba(193,221,139,.48)";
+  ac.lineWidth = 1.5;
+  ac.beginPath();
+  ac.moveTo(179, 225);
+
+  ac.bezierCurveTo(
+    174, 300,
+    190, 360,
+    181, 445
+  );
+
+  ac.stroke();
+
+  ac.fillStyle = "#8eac6b";
+
+  for (let i = 0; i < 5; i++) {
+    const y = 270 + i * 31;
+    const x = 179 + Math.sin(i * .8) * 5;
+    ac.beginPath();
+    ac.moveTo(x, y);
+    ac.lineTo(x + 10, y - 9);
+    ac.lineTo(x + 3, y + 2);
+    ac.fill();
+  }
+
+  makeLeaf(181, 290, 75, 40, -.15);
+  makeLeaf(180, 340, 74, 43, 3.2);
+  makeLeaf(181, 390, 66, 38, -.2);
+  makeLeaf(180, 420, 47, 27, 3.0);
+}
+
+/* =========================================================
+   CONSTRUÇÃO ASCII ORIGINAL — NÃO MODIFICAR
+   ========================================================= */
+
+function buildAscii() {
+  ac.clearRect(0, 0, AW, AH);
+  makeStem();
+  makeRose();
+
+  const image = ac.getImageData(0, 0, AW, AH);
+  const data = image.data;
+  asciiPoints = [];
+  const step = 3;
+
+  for (let y = 0; y < AH; y += step) {
+    for (let x = 0; x < AW; x += step) {
+      const i = (y * AW + x) * 4;
+      const alpha = data[i + 3] / 255;
+      if (alpha < .13) continue;
+
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const isGreen = g > r * 1.10 && g > b * .95;
+      const palette = isGreen ? greenChars : flowerChars;
+
+      asciiPoints.push({
+        x,
+        y,
+        r,
+        g,
+        b,
+        palette,
+        char: palette[Math.floor(Math.random() * palette.length)],
+        phase: Math.random() * TAU,
+        speed: random(.5, 1.5),
+        drift: random(.35, 1.2),
+        nextChange: Math.floor(random(4, 22))
+      });
+    }
+  }
+}
+
+function drawAscii(cx, top, width, height) {
+  const scaleX = width / AW;
+  const scaleY = height / AH;
+  const time = frame * .035;
+
+  asciiPoints.forEach((p) => {
+    const t = time * p.speed + p.phase;
+    const dx = Math.sin(t) * p.drift;
+    const dy = Math.cos(t * .8) * p.drift;
+    const wave = Math.sin(time * .5 + p.y * .025) * .7;
+
+    const x = cx - width / 2 + (p.x + dx) * scaleX;
+    const y = top + (p.y + dy + wave) * scaleY;
+
+    if (frame % p.nextChange === 0) {
+      p.char = p.palette[Math.floor(Math.random() * p.palette.length)];
+    }
+
+    const pulseValue = .78 + .22 * Math.sin(t * 1.6);
+    ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${pulseValue})`;
+    ctx.font = `${Math.max(5, 7 * scaleX)}px monospace`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(p.char, x, y);
+  });
+}
+
+/* =========================================================
+   CHUVA DE LETRAS E NÚMEROS EM MOVIMENTO
+   ========================================================= */
+
+function createRain() {
+  rain = [];
+  const count = Math.ceil(W / 14);
+
+  for (let i = 0; i < count; i++) {
+    rain.push({
+      x: i * 14,
+      y: random(-H, H),
+      speed: random(.7, 2.8),
+      length: Math.floor(random(5, 16)),
+      phase: random(0, TAU),
+      drift: random(-.18, .18),
+      brightness: random(.35, .9)
+    });
+  }
+}
+
+function drawRain() {
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  rain.forEach((drop) => {
+    for (let j = 0; j < drop.length; j++) {
+      const y = drop.y - j * 15;
+      if (y < 0 || y > H) continue;
+
+      const alpha = j === 0
+        ? .75 * drop.brightness
+        : .06 + .18 * (1 - j / drop.length);
+
+      ctx.fillStyle = j === 0
+        ? `rgba(255,220,240,${alpha})`
+             : `rgba(196,116,165,${alpha})`;
+
+      const char = codeChars[Math.floor(Math.random() * codeChars.length)];
+      ctx.font = "10px monospace";
+      ctx.fillText(char, drop.x, y);
+    }
+
+    drop.x += drop.drift;
+    drop.y += drop.speed;
+
+    if (drop.y - drop.length * 15 > H) {
+      drop.y = random(-H * .4, 0);
+      drop.x = clamp(drop.x, 0, W);
+      drop.speed = random(.7, 2.8);
+    }
+  });
+}
+
+/* =========================================================
+   ESTRELAS E POEIRA FLUTUANTE
+   ========================================================= */
+
+function createStars() {
+  stars = [];
+
+  for (let i = 0; i < 85; i++) {
+    stars.push({
+      x: random(0, W),
+      y: random(0, H),
+      speed: random(.12, .65),
+      size: random(.5, 1.8),
+      phase: random(0, TAU)
+    });
+  }
+}
+
+function drawStars() {
+  stars.forEach((star) => {
+    star.y -= star.speed;
+
+    if (star.y < -5) {
+      star.y = H + 5;
+      star.x = random(0, W);
+    }
+
+    const alpha = .2 + .65 * pulse(frame, .04, star.phase);
+    ctx.fillStyle = `rgba(255,210,235,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, TAU);
+    ctx.fill();
+  });
+}
+
+function createFloatingDust() {
+  floatingDust = [];
+
+  for (let i = 0; i < 42; i++) {
+    floatingDust.push({
+      x: random(0, W),
+      y: random(0, H),
+      radius: random(.4, 1.5),
+      speedX: random(-.12, .12),
+      speedY: random(-.28, -.06),
+      phase: random(0, TAU),
+      alpha: random(.18, .6)
+    });
+  }
+}
+
+function drawFloatingDust() {
+  floatingDust.forEach((particle) => {
+    particle.x += particle.speedX;
+    particle.y += particle.speedY;
+    particle.x += Math.sin(frame * .012 + particle.phase) * .08;
+
+    if (particle.y < -8) {
+      particle.y = H + 8;
+      particle.x = random(0, W);
+    }
+
+    if (particle.x < -8) particle.x = W + 8;
+    if (particle.x > W + 8) particle.x = -8;
+
+    const flicker = .65 + .35 * pulse(frame, .035, particle.phase);
+    ctx.fillStyle = rgba(255, 218, 237, particle.alpha * flicker);
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.radius, 0, TAU);
+    ctx.fill();
+  });
+}
+
+/* =========================================================
+   PONTOS DE BRILHO QUE PERCORREM A REDOMA
+   ========================================================= */
+
+function createGlints() {
+  glints = [];
+
+  for (let i = 0; i < 12; i++) {
+    glints.push({
+      side: i % 2 === 0 ? -1 : 1,
+      progress: random(0, 1),
+      speed: random(.0015, .004),
+      size: random(1, 2.2),
+      phase: random(0, TAU)
+    });
+  }
+}
+
+function drawGlints(cx, top, width, height) {
+  glints.forEach((glint) => {
+    glint.progress += glint.speed;
+    if (glint.progress > 1) glint.progress = 0;
+
+    const y = top + height * (.18 + glint.progress * .72);
+    const x = cx + glint.side * (
+      width * .46 + Math.sin(frame * .025 + glint.phase) * 2
+    );
+
+    const alpha = .2 + .55 * pulse(frame, .045, glint.phase);
+    ctx.fillStyle = rgba(255, 226, 242, alpha);
+    ctx.shadowColor = "rgba(255,198,226,.8)";
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(x, y, glint.size, 0, TAU);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+}
+
+/* =========================================================
+   REDOMA: SILHUETA E VIDRO
+   ========================================================= */
+
+function traceDomePath(cx, top, width, height) {
+  const left = cx - width / 2;
+  const right = cx + width / 2;
+  const radius = width / 2;
+  const bottom = top + height;
+
+  ctx.beginPath();
+  ctx.moveTo(left, bottom);
+  ctx.lineTo(left, top + radius);
+
+  ctx.bezierCurveTo(
+    left,
+    top + radius * .44,
+    cx - radius * .65,
+    top,
+    cx,
+    top
+  );
+
+  ctx.bezierCurveTo(
+    cx + radius * .65,
+    top,
+    right,
+    top + radius * .44,
+    right,
+    top + radius
+  );
+
+  ctx.lineTo(right, bottom);
+  ctx.closePath();
+}
+
+function drawGlassFill(cx, top, width, height) {
+  const left = cx - width / 2;
+  const right = cx + width / 2;
+
+  const shade = ctx.createLinearGradient(left, 0, right, 0);
+  shade.addColorStop(0, "rgba(180,190,220,.13)");
+  shade.addColorStop(.13, "rgba(255,255,255,.025)");
+  shade.addColorStop(.50, "rgba(255,255,255,.008)");
+  shade.addColorStop(.87, "rgba(255,255,255,.025)");
+  shade.addColorStop(1, "rgba(180,190,220,.13)");
+
+  traceDomePath(cx, top, width, height);
+  ctx.fillStyle = shade;
+  ctx.fill();
+}
+
+function drawGlassOutline(cx, top, width, height) {
+  traceDomePath(cx, top, width, height);
+  ctx.strokeStyle = "rgba(221,218,241,.68)";
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  const left = cx - width / 2;
+  const right = cx + width / 2;
+  const radius = width / 2;
+  const bottom = top + height;
+
+  ctx.strokeStyle = "rgba(255,255,255,.12)";
+  ctx.lineWidth = .8;
+  ctx.beginPath();
+  ctx.moveTo(left + 5, bottom - 5);
+  ctx.lineTo(left + 5, top + radius);
+
+  ctx.bezierCurveTo(
+    left + 5,
+    top + radius * .5,
+    cx - radius * .6,
+    top + 5,
+    cx,
+    top + 5
+  );
+
+  ctx.bezierCurveTo(
+    cx + radius * .6,
+    top + 5,
+    right - 5,
+    top + radius * .5,
+    right - 5,
+    top + radius
+  );
+
+  ctx.lineTo(right - 5, bottom - 5);
+  ctx.stroke();
+}
+
+function drawGlassReflections(cx, top, width, height) {
+  const left = cx - width / 2;
+  const right = cx + width / 2;
+  const radius = width / 2;
+  const bottom = top + height;
+
+  ctx.strokeStyle = "rgba(255,255,255,.68)";
+  ctx.lineWidth = 2.1;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(left + 12, top + radius + 15);
+
+  ctx.bezierCurveTo(
+    left + 3,
+    top + height * .48,
+    left + 10,
+    top + height * .75,
+    left + 14,
+    bottom - 38
+  );
+
+  ctx.stroke();
+
+  ctx.strokeStyle = "rgba(213,225,255,.4)";
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.moveTo(right - 13, top + radius + 35);
+
+  ctx.bezierCurveTo(
+    right - 5,
+    top + height * .47,
+    right - 9,
+    top + height * .7,
+    right - 14,
+    bottom - 60
+  );
+
+  ctx.stroke();
+
+  ctx.strokeStyle = "rgba(255,255,255,.4)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(cx, top + 5, width * .12, 3, 0, Math.PI, TAU);
+  ctx.stroke();
+}
+
+function drawDome(cx, top, width, height) {
+  drawGlassFill(cx, top, width, height);
+  drawGlassOutline(cx, top, width, height);
+  drawGlassReflections(cx, top, width, height);
+}
+
+/* =========================================================
+   TAMPA ORNAMENTAL DOURADA
+   ========================================================= */
+
+function makeGoldGradient(cx, top) {
+  const gold = ctx.createLinearGradient(cx - 18, top - 30, cx + 18, top + 5);
+  gold.addColorStop(0, "#fff0b8");
+  gold.addColorStop(.25, "#d6ae65");
+  gold.addColorStop(.55, "#fff0c5");
+  gold.addColorStop(.8, "#a97b3d");
+  gold.addColorStop(1, "#f2d89b");
+  return gold;
+}
+
+function drawLidStem(cx, top) {
+  ctx.strokeStyle = "#d8b56e";
+  ctx.lineWidth = 3;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(cx, top - 17);
+  ctx.lineTo(cx, top - 3);
+  ctx.stroke();
+}
+
+function drawLidCollar(cx, top, gold) {
+  ctx.fillStyle = gold;
+  ctx.beginPath();
+  ctx.ellipse(cx, top + 1, 17, 5, 0, 0, TAU);
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,239,193,.75)";
+  ctx.lineWidth = .8;
+  ctx.stroke();
+}
+
+function drawLidFinial(cx, top, gold) {
+  ctx.beginPath();
+  ctx.moveTo(cx, top - 36);
+
+  ctx.bezierCurveTo(
+    cx - 19,
+    top - 38,
+    cx - 17,
+    top - 17,
+    cx,
+    top - 15
+  );
+
+  ctx.bezierCurveTo(
+    cx + 17,
+    top - 17,
+    cx + 19,
+    top - 38,
+    cx,
+    top - 36
+  );
+
+  ctx.fillStyle = gold;
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,239,193,.8)";
+  ctx.lineWidth = 1;
+  ctx.stroke();
+}
+
+function drawFinialHighlight(cx, top) {
+  ctx.fillStyle = "rgba(255,255,255,.8)";
+  ctx.beginPath();
+  ctx.arc(cx - 5, top - 30, 2, 0, TAU);
+  ctx.fill();
+
+  ctx.fillStyle = "rgba(255,247,220,.55)";
+  ctx.beginPath();
+  ctx.arc(cx + 5, top - 23, 1.2, 0, TAU);
+  ctx.fill();
+}
+
+function drawLidStar(cx, top) {
+  ctx.save();
+  ctx.translate(cx, top - 42);
+  ctx.fillStyle = "#ffe8ad";
+  ctx.shadowColor = "#e7bd70";
+  ctx.shadowBlur = 12;
+  ctx.beginPath();
+
+  for (let i = 0; i < 8; i++) {
+    const angle = i * Math.PI / 4;
+    const radius = i % 2 === 0 ? 5 : 2;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawLidFiligree(cx, top) {
+  ctx.save();
+  ctx.strokeStyle = "rgba(255,229,173,.72)";
+  ctx.lineWidth = .8;
+  ctx.beginPath();
+  ctx.moveTo(cx - 11, top - 8);
+  ctx.quadraticCurveTo(cx, top - 13, cx + 11, top - 8);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx, top - 12, 2, 0, TAU);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawOrnamentalLid(cx, top) {
+  const gold = makeGoldGradient(cx, top);
+  drawLidStem(cx, top);
+  drawLidCollar(cx, top, gold);
+  drawLidFinial(cx, top, gold);
+  drawFinialHighlight(cx, top);
+  drawLidStar(cx, top);
+  drawLidFiligree(cx, top);
+}
+
+/* =========================================================
+   BASE PRETA: CORPO, AROS E ACABAMENTO
+   ========================================================= */
+
+function drawBaseShadow(cx, y, baseWidth) {
+  ctx.fillStyle = "rgba(0,0,0,.42)";
+  ctx.beginPath();
+  ctx.ellipse(cx, y + 25, baseWidth * .52, 13, 0, 0, TAU);
+  ctx.fill();
+}
+
+function makeBaseGradient(y) {
+  const gradient = ctx.createLinearGradient(0, y - 8, 0, y + 35);
+  gradient.addColorStop(0, "#514254");
+  gradient.addColorStop(.16, "#29202e");
+  gradient.addColorStop(.45, "#100d15");
+  gradient.addColorStop(.82, "#050408");
+  gradient.addColorStop(1, "#332438");
+  return gradient;
+}
+
+function drawBaseBody(cx, y, baseWidth) {
+  const gradient = makeBaseGradient(y);
+  ctx.beginPath();
+  ctx.moveTo(cx - baseWidth * .5, y);
+
+  ctx.bezierCurveTo(
+    cx - baseWidth * .49,
+    y + 22,
+    cx - baseWidth * .38,
+    y + 34,
+    cx,
+    y + 34
+  );
+
+  ctx.bezierCurveTo(
+    cx + baseWidth * .38,
+    y + 34,
+    cx + baseWidth * .49,
+    y + 22,
+    cx + baseWidth * .5,
+    y
+  );
+
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+}
+
+function drawBaseTopRing(cx, y, baseWidth) {
+  ctx.strokeStyle = "rgba(224,204,238,.7)";
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.ellipse(cx, y, baseWidth * .5, 8, 0, 0, TAU);
+  ctx.stroke();
+}
+
+function drawBaseHighlight(cx, y, baseWidth) {
+  ctx.strokeStyle = "rgba(255,255,255,.18)";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.ellipse(cx, y + 3, baseWidth * .46, 6, 0, .12, Math.PI - .12);
+  ctx.stroke();
+}
+
+function drawBaseLowerRing(cx, y, baseWidth) {
+  ctx.strokeStyle = "rgba(173,139,179,.5)";
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.ellipse(cx, y + 27, baseWidth * .37, 5, 0, .1, Math.PI - .1);
+  ctx.stroke();
+}
+
+function drawBaseCenterGem(cx, y) {
+  const gem = ctx.createRadialGradient(cx - .5, y + 16, .2, cx, y + 17, 3);
+  gem.addColorStop(0, "#fff0d0");
+  gem.addColorStop(.5, "#bca0c2");
+  gem.addColorStop(1, "#654b70");
+  ctx.fillStyle = gem;
+  ctx.beginPath();
+  ctx.arc(cx, y + 17, 2.5, 0, TAU);
+  ctx.fill();
+}
+
+function drawBase(cx, y, width) {
+  const baseWidth = width * 1.06;
+  drawBaseShadow(cx, y, baseWidth);
+  drawBaseBody(cx, y, baseWidth);
+  drawBaseTopRing(cx, y, baseWidth);
+  drawBaseHighlight(cx, y, baseWidth);
+  drawBaseLowerRing(cx, y, baseWidth);
+  drawBaseCenterGem(cx, y);
+}
+
+/* =========================================================
+   AURA, BRILHOS E ENQUADRAMENTO
+   ========================================================= */
+
+function drawRoseAura(cx, top, width, height) {
+  const glow = ctx.createRadialGradient(
+    cx,
+    top + height * .46,
+    5,
+    cx,
+    top + height * .46,
+    width * .8
+  );
+
+  glow.addColorStop(0, "rgba(157,38,83,.16)");
+  glow.addColorStop(.48, "rgba(109,39,88,.07)");
+  glow.addColorStop(1, "rgba(8,5,13,0)");
+
+  ctx.fillStyle = glow;
+  ctx.fillRect(cx - width, top - 30, width * 2, height + 80);
+}
+
+function drawGlassSparkles(cx, top, width, height) {
+  for (let i = 0; i < 4; i++) {
+    const y = top + height * (.18 + i * .16);
+    const x = cx - width * .40;
+    const alpha = .25 + .45 * (.5 + .5 * Math.sin(frame * .04 + i));
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(x, y, 1.3, 0, TAU);
+    ctx.fill();
+  }
+}
+
+function getCompositionMetrics() {
+  const cx = W / 2;
+  const scale = getScaleFactor();
+  const width = Math.min(W * .82, 340) * scale;
+  const height = Math.min(H * .49, 390) * scale;
+  const top = H * .245;
+
+  return {
+    cx,
+    width,
+    height,
+    top,
+    bottom: top + height
+  };
+}
+
+function drawComposition() {
+  const metrics = getCompositionMetrics();
+  const cx = metrics.cx;
+  const width = metrics.width;
+  const height = metrics.height;
+  const top = metrics.top;
+  const bottom = metrics.bottom;
+
+  drawRoseAura(cx, top, width, height);
+  drawBase(cx, bottom, width);
+
+  const artHeight = height * .96;
+  drawAscii(
+    cx,
+    top + height * .015,
+    width * .91,
+    artHeight
+  );
+
+  drawDome(cx, top, width, height);
+  drawOrnamentalLid(cx, top);
+  drawGlassSparkles(cx, top, width, height);
+  drawGlints(cx, top, width, height);
+}
+
+/* =========================================================
+   FUNDO E RENDERIZAÇÃO
+   ========================================================= */
+
+function drawBackground() {
+  const gradient = ctx.createRadialGradient(
+    W * .5,
+    H * .44,
+    5,
+    W * .5,
+    H * .44,
+    Math.max(W, H) * .78
+  );
+
+  gradient.addColorStop(0, "#140b18");
+  gradient.addColorStop(.52, "#0b0710");
+  gradient.addColorStop(1, "#050309");
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawAtmosphere() {
+  drawStars();
+  drawFloatingDust();
+}
+
+function renderScene() {
+  ctx.clearRect(0, 0, W, H);
+  drawBackground();
+  drawRain();
+  drawAtmosphere();
+  drawComposition();
+}
+
+/* =========================================================
+   LOOP DE ANIMAÇÃO E CONTROLE DE VISIBILIDADE
+   ========================================================= */
+
+function animate(timestamp) {
+  if (!lastFrameTime) {
+    lastFrameTime = timestamp;
+  }
+
+  const elapsed = timestamp - lastFrameTime;
+
+  if (elapsed >= 16) {
+    frame++;
+    renderScene();
+    lastFrameTime = timestamp;
+  }
+
+  animationId = window.requestAnimationFrame(animate);
+}
+
+function initializeArtwork() {
+  resize();
+  buildAscii();
+
+  if (animationId) {
+    window.cancelAnimationFrame(animationId);
+  }
+
+  lastFrameTime = 0;
+  animationId = window.requestAnimationFrame(animate);
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    if (animationId) {
+      window.cancelAnimationFrame(animationId);
+      animationId = 0;
+    }
+  } else if (!animationId) {
+    lastFrameTime = 0;
+    animationId = window.requestAnimationFrame(animate);
+  }
+});
+
+function showCanvasFallback() {
+  document.body.style.background =
+    "radial-gradient(ellipse at center, #190d1c, #08050d 78%)";
+
+  const fallback = document.createElement("div");
+  fallback.textContent = "DUKA ♡";
+  fallback.style.position = "fixed";
+  fallback.style.inset = "50% auto auto 50%";
+  fallback.style.transform = "translate(-50%, -50%)";
+  fallback.style.color = "#fff0f7";
+  fallback.style.font = "42px Georgia, serif";
+  fallback.style.letterSpacing = "8px";
+  fallback.style.textShadow = "0 0 22px #e88bb9";
+  document.body.appendChild(fallback);
+}
+
+try {
+  initializeArtwork();
+} catch (error) {
+  console.error("Não foi possível iniciar a arte:", error);
+  showCanvasFallback();
+}
+</script>
+</body>
+</html>
